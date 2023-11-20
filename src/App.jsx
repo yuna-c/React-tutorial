@@ -1,4 +1,5 @@
 import { Footer, Header } from './components/common/Layout';
+import Modal from './components/common/Modal';
 import Visual from './components/main/Visual';
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
 			<Header />
 			<Visual />
 			<Footer />
+			<Modal />
 		</>
 	);
 }
