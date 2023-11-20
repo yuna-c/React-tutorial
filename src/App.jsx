@@ -1,7 +1,9 @@
+import Title from './Title'; //상대경로
+
 function App() {
 	return (
 		<div className='App'>
-			<h1>React</h1>
+			<Title />
 		</div>
 	);
 }
