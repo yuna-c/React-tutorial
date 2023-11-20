@@ -1,10 +1,12 @@
-function Title() {
+export default function Title() {
 	return (
 		<h1>
-			Title
-			<small>blabla</small>
+			Hello
+			<small>title1</small>
+			<small>title2</small>
+			<small>title3</small>
 		</h1>
 	);
 }
 
-export default Title;
+//rfce
