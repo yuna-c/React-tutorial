@@ -1,18 +1,27 @@
 import Card from './card/Card';
 
 export default function App() {
-	const colors = ['pink', 'lightblue', 'lightcoral', 'lightcyan', 'lightgreen'];
-	const widths = ['200px', '240px', '230px', '100px', '50px'];
+	const colors = ['orange', 'hotpink', 'aqua', 'green'];
 
 	return (
 		<>
 			<h1>Color Chart</h1>
+
 			{colors.map((color, idx) => {
-				// 컴포넌트 호출시 특정 값을 key={value} 형태로 컴포넌트 내부에 전달 가능 {props}
-				// 컨트롤 파일명 클릭 바로 파일 열어줌
-				return <Card key={color + idx} name={color} index={idx} width={250} show={'block'} />;
+				return (
+					<Card
+						key={color + idx}
+						colorName={color}
+						index={idx}
+						// JSX내부적으로는 if 문을 쓸 수 없기 떄문에 삼항연산자로 값 자체를 조건문 처리 가능
+						wid={idx === 1 ? 300 : 150}
+						// show={'block'}
+						//show={idx === 2 ? 'none' : 'block'}
+						show={idx === 2 ? false : true}
+					/>
+				);
 			})}
-			<Card key={6} name={'black'} index={6} width={100} show={'none'} />
+			<Card />
 		</>
 	);
 }
