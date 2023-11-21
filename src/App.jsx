@@ -1,34 +1,40 @@
+import { useState } from 'react';
+
 export default function App() {
-	//리액트에서는 특정 DOM(가상DOM) 요소 선택시 가급적 document.querySelector 사용 지양
-	//리액트 구조상 document.querySeletor은 현재 작어하고 있는 최신 가상돔이 아닌 이미 한번 real-Dom형태로 변환된 예전 DOM을 찾게 되므로 DOM요소의 신뢰성이 떨어짐
-	const name = '아! XX 기훈이형';
-	const names = ['홍길동0', '홍길동1', '홍길동2', '홍길동3', '홍길동4'];
-	const cl_name = 'wrap';
-	//미션 : 2번 txt에 문자를 집어 넣어서 button글자 내용을 변경되게 호출
-	const changebutton = (e, txt) => {
-		e.currentTarget.innerText = txt;
-		// console.log(txt);
-		console.log(e);
+	console.log('re-render');
+	// 해당 경우 : 이벤트 발생시 state의 정보값 변경이 아닌
+	// 일반 변수의 값을 변경하고 있기 때문에
+	// 리액트 입장에서는 해당 내용의 변경 사항을 중요하게 인식하지 않아서 컴포넌트 재호출(re-render)하지 않음
+	// 위와 같은 직접 변수값을 변경하는 경우 화면의 변경은 일어나지만 이 변경 사항은 리액트의 제어에서 벗어난 일반적인 DOM의 구조가 변경되는 것 뿐 (document.querySelector)
+	// 굳이 번거롭게 일반 변수가 아닌 state라는 것만 가지고 화면을 제어하도록 강제하는 이유 (모션)
+	//let num = 0; // 초기화가 안된다는 말 (button0++가 됨)
+
+	const [Num, setNum] = useState(0);
+
+	const changeButton = (e, txt) => {
+		setNum(Num + 1);
+		e.target.innerText = txt + Num;
+		//e.target.innerText = txt + Num++; 리액트 함수안에 지역변수 안돼, 중요한 정보라고 인식 못해
 	};
 
 	return (
 		<>
-			<section className={cl_name}>
-				<h1>안녕하세요 제이름은 {name} 입니다.</h1>
-				<button
-					onClick={(e) => {
-						changebutton(e, '버튼2');
-					}}
-				>
-					버튼
-				</button>
-				<br></br>
-				<ul>
-					{names.map((name, idx) => {
-						return <li key={idx}>{name}</li>;
-					})}
-				</ul>
+			<section>
+				<button onClick={(e) => changeButton(e, 'button')}>버튼</button>
 			</section>
 		</>
 	);
 }
+/*
+	리액트에서 re-render, re-paint
+	re-render : 해당 컴포넌트 재호출
+	re-paint : 컴포넌트 재 호출시 화면 출력의 변화를 담당하는 중요한 정보 값을 인지시 화면을 다시 그리면서 DOM구조 바꾸는 행위
+
+	리액트에서 re-paint를 발생시키면서 실제 변경된 구조를 인식하기 위한 경우는 다음과 같음
+	1. 물리적으로 DOM의 구조 변경
+	2. 무조건 State를 통해서 값이 변경되야 함
+
+	리액트에서 re-render 발생시키면서 실제 다음의 2경우에만 발생
+	1. state라는 정보값이 변경되거나
+	2. 물리적으로 JSX의 구조가 변경되거나
+*/
