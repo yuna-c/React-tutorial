@@ -8,6 +8,7 @@ export default function App() {
 	const changebutton = (e, txt) => {
 		e.target.innerText = txt;
 		// console.log(txt);
+		console.log((e.target.innerText = 'txt'));
 	};
 
 	return (
