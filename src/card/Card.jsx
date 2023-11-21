@@ -10,6 +10,7 @@ export default function Card({ colorName = 'gray', index = 0, wid = 250, show = 
 					{index + 1}-{colorName}
 				</div>
 			)}
+			{/* 이것도 삼항 연산자 분기처리얌 */}
 		</article>
 	);
 }
