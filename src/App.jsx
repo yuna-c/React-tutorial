@@ -1,34 +1,17 @@
 import { useState } from 'react';
-
-/*
-State가 변경 및 반영되는 시점
-1. 이벤트 발생시 state 변경 함수로 변경될 때 해당 랜더링 사이클에서 변경됨
-2. 변경된 state값이 실제 DOM에 반영되는 사이클은 그 다음번 렌더링 사이클
-*/
+import './App.scss';
 
 export default function App() {
+	// state값 변경 순서에 따라 결과 화면 상이함
 	console.log('render');
-	const [Txt, setTxt] = useState('old');
-
-	/*
-	위 로직 실행 순서
-	1. state값 초기화(render1)
-	2. 버튼 클릭시 state값 변경은 되지만 실제 반영되진 않음(render1)
-	3. 리액트 내부적으로 state값 변경을 인지해서 컴포넌트 재실행
-	4. 이전 렌더링 사이클 변경된 state값이 실제 두번째 렌더링 사이클에서 반영됨(render2)
-	*/
+	let [Index, setIndex] = useState(0);
 
 	return (
 		<>
-			<h1>{Txt}</h1>
-			<button
-				onClick={() => {
-					setTxt('new');
-					console.log(Txt);
-				}}
-			>
-				글자변경
-			</button>
+			<button onClick={() => setIndex(--Index)}>왼쪽으로 회전</button>
+			{/* 전위 연산자에서는 바뀐 값으로 먼저 적용이 되어 있기 때문에 한번에 동작이 되고 후위연산자일 경우에는 console.log(num++)라고 값을 저장해도 다음번 호출때 값이 바뀌는 것을 기억하세욤! render 호출 아까 색 바꿀 때 안됬을 때를 생각하세요! */}
+			<button onClick={() => setIndex(++Index)}>오른쪽으로 회전</button>
+			<div className='box' style={{ transform: `rotate(${45 * Index}deg)` }}></div>
 		</>
 	);
 }
