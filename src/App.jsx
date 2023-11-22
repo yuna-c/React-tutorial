@@ -1,63 +1,32 @@
-import Modal from './modal/Modal';
 import { useState } from 'react';
 
+/*
+	State가 변경 및 반영되는 시점
+	1. 이벤트 발생시 state 변경 함수로 변경될 때 해당 랜더링 사이클에서 변경됨
+	2. 변경된 state값이 실제 DOM에 반영되는 사이클은 그 다음번 렌더링 사이클
+*/
 export default function App() {
-	const [IsOpen, setIsOpen] = useState(false);
-	// 미션2 - 버튼 클릭시 h1의 글자색 변경처리(직접 변경할 색상을 인수로 전달 처리)
-	const [Color, setColor] = useState('black');
-	// 미션3 - 아래 초기 state배열 값 바탕으로 동적 버튼 생성과 동시에 이벤트 바인딩
-	// 자주 쓰는 패턴 (정보값을 토대로 반복 가상돔 생성)
-	// 1.return 안쪽에서 {}생성
-	/*
-	2. 중괄호 안쪽에서 배열 State.map((반복데이터,순서)=>{
-		return <JSX>{활용할 값}</JSX>
-	})
-	*/
-	const [DbColors, setDbColors] = useState(['hotpink', 'red', 'aqua', 'orange', 'violet']);
+	console.log('render');
+	const [Txt, setTxt] = useState('old');
 
+	/*
+	위 로직 실행 순서
+	1. state값 초기화(render1)
+	2. 버튼 클릭시 state값 변경은 되지만 실제 반영되진 않음(render1)
+	3. 리액트 내부적으로 state값 변경을 인지해서 컴포넌트 재실행
+	4. 이전 렌더링 사이클 변경된 state값이 실제 반영됨(render2)
+	*/
 	return (
 		<>
-			<div>
-				<h1 style={{ color: Color }}>부모 컴퍼넌트</h1>
-				{/* 
-				<button
-					onClick={() => {
-						setColor('hotpink');
-					}}
-				>
-					hotpink
-				</button> 
-				*/}
-
-				{DbColors.map((data, idx) => {
-					return (
-						<button
-							key={data + idx}
-							onClick={() => {
-								setColor(data);
-							}}
-						>
-							{data}버튼
-						</button>
-					);
-				})}
-			</div>
-
+			<h1>{Txt}</h1>
 			<button
 				onClick={() => {
-					setColor('hotpink');
+					setTxt('new');
+					console.log(Txt);
 				}}
 			>
-				제목 글자색 변경
+				글자변경
 			</button>
-			<button
-				onClick={() => {
-					setIsOpen(!IsOpen);
-				}}
-			>
-				{IsOpen ? '모달열기' : '모달닫기'}
-			</button>
-			{IsOpen && <Modal />}
 		</>
 	);
 }
