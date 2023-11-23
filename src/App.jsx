@@ -8,7 +8,7 @@ useState는 다음번 렌더링 사이클에 변경사항 반영
 
 export default function App() {
 	console.log('render');
-	const num1 = useRef(0);
+	let num1 = useRef(0);
 	const [Num2, setNum2] = useState(0);
 
 	const handleClick = () => {
