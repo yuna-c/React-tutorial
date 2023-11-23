@@ -13,7 +13,7 @@ export default function Modal({ setOpen }) {
 
 	return (
 		<>
-			{/* 컴포넌트 안쪽은 지역 State */}
+			{/* 컴포넌트 안쪽은 지역 State, 전역상태관리는 리덕스 */}
 			<aside className='mask'></aside>
 			<aside className='modal'>
 				<button className='btn' onClick={() => setOpen(false)}>
