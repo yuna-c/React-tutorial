@@ -9,18 +9,29 @@ export default function App() {
 	console.log(num);
 
 	const minus = () => {
-		num.current = --num.current;
+		num.current--;
 		console.log(num.current);
 	};
 	const plus = () => {
-		num.current = ++num.current;
+		//useRef값은 state와달리 값이 변경시 다음번 렌더링 싸이클로 넘어가는 경우가 아니기 때문에
+		//다음의 코드에서 볼수 있듯이, 전위, 후위에 따른 결과값 차이가 발생하지 않음
+
+		//전위증감 연산자인 경우
+		//++num.current;
+		//num.current = num.current +1;
+
+		//후위증감 연산자인 경우
+		//num.current++;
+		//num.current = num.current;
+		//num.current = num.current + 1;
+		++num.current;
 		console.log(num.current);
 	};
 	return (
 		<>
 			<button onClick={minus}>left</button>
 			<button onClick={plus}>right</button>
-			<div ref={refBox} className='box' style={{ trnasform: `rotate(${num.current * 45}deg)` }}></div>
+			<div ref={refBox} className='box' style={{ transform: `rotate(${num.current * 45}deg)` }}></div>
 			{/* data 제어 기반 (앞으로 변환이 될 리얼돔 미리 참조지롱!)*/}
 		</>
 	);
