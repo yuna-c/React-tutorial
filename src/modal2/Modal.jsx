@@ -13,6 +13,7 @@ export default function Modal({ setOpen }) {
 
 	return (
 		<>
+			{/* 컴포넌트 안쪽은 지역 State */}
 			<aside className='mask'></aside>
 			<aside className='modal'>
 				<button className='btn' onClick={() => setOpen(false)}>
