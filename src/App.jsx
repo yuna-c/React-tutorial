@@ -1,5 +1,29 @@
+import { useRef } from 'react';
+import './App.scss';
+
 export default function App() {
-	return <></>;
+	console.log('render');
+	const num = useRef(0); //객체 : 참조객체를 만들어 줌
+	const refBox = useRef(null);
+
+	console.log(num);
+
+	const minus = () => {
+		num.current = --num.current;
+		console.log(num.current);
+	};
+	const plus = () => {
+		num.current = ++num.current;
+		console.log(num.current);
+	};
+	return (
+		<>
+			<button onClick={minus}>left</button>
+			<button onClick={plus}>right</button>
+			<div ref={refBox} className='box' style={{ trnasform: `rotate(${num.current * 45}deg)` }}></div>
+			{/* data 제어 기반 (앞으로 변환이 될 리얼돔 미리 참조지롱!)*/}
+		</>
+	);
 }
 
 /*
@@ -14,4 +38,11 @@ useRef :
 : useRef를 통해서 생성한 참조 객체에 저장된 값은 다른 state변경에 의해서 컴포넌트가 재 랜더링 되더라도 이전 사이클에서의 값을 유지함
 : 참조객체에 담겨있는 값을 우리 임의로 변경하더라도 해당 값의 변경은 state와 달리 컴포넌트를 재 랜더링 시키지 않음(모션)
 : 화면의 정보를 담당하는 중요한 정보 값이 단지 모션을 위한 수치값 같은 덜 중요한 값들은 참조객체로 관리하는 것이 유리 
+
+-- 쓰임 2에 대한 해설
+: 리액트에서 어쩔 수 없이 realDom을 직접 가져와서 이벤트 연결 해야 하는 경우 
+: 스크롤 모션 이벤트, 인풋요소 포커스 연결 이벤트
+: document.querySelector를 리액트의 제어에서 벗어난 이전 렌더링 사이클에서 생성된 과거 신뢰할 수 없는 Dom을 참조
+: useRef를 통한 참조객체에 담겨있는 realDom은 React에서 관리하는 신뢰할 수 있는 최신 상태의 리얼돔을 참조
+: 참조객체current.querySelector 가능(최신돔) but! document객체 (이미 리엑트 생성전에 만들어진 바디 요소니까 신뢰성이 떨어짐)
 */

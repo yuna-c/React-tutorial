@@ -2,7 +2,14 @@
 	margin: 0;
 	padding: 0;
 }
-body {
-	height: 300vh;
-	background: linear-gradient(to bottom, rgb(130, 196, 222), rgb(112, 201, 233), rgb(180, 215, 229));
+// body {
+// 	height: 300vh;
+// 	background: linear-gradient(to bottom, rgb(130, 196, 222), rgb(112, 201, 233), rgb(180, 215, 229));
+// }
+.box {
+	width: 200px;
+	height: 200px;
+	margin: 200px;
+	background: skyblue;
+	transition: 0.54s;
 }
